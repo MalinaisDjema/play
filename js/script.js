@@ -33,6 +33,11 @@ function handleCellClick(e) {
   board[index] = currentPlayer;
   e.target.textContent = currentPlayer;
   e.target.classList.add(currentPlayer.toLowerCase());
+  e.target.classList.add('pop');
+  e.target.addEventListener('animationend', function handler() {
+    e.target.classList.remove('pop');
+    e.target.removeEventListener('animationend', handler);
+  });
 
   const winCombo = checkWin();
   if (winCombo) {
@@ -59,7 +64,8 @@ function handleCellClick(e) {
   }
 
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-  statusEl.textContent = 'Ход: ' + currentPlayer;
+  var cls = currentPlayer === 'X' ? 'player-x' : 'player-o';
+  statusEl.innerHTML = 'Ход: <span class="' + cls + '">' + currentPlayer + '</span>';
 }
 
 function checkWin() {
@@ -91,7 +97,7 @@ function restartGame() {
   board = Array(9).fill('');
   currentPlayer = 'X';
   gameActive = true;
-  statusEl.textContent = 'Ход: X';
+  statusEl.innerHTML = 'Ход: <span class="player-x">X</span>';
 
   for (var i = 0; i < cells.length; i++) {
     cells[i].textContent = '';
