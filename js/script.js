@@ -75,8 +75,7 @@ function restartGame() {
   cells.forEach((cell) => {
     cell.textContent = '';
     cell.disabled = false;
-    cell.classList.remove('x', 'o');
-    cell.style.background = '';
+    cell.classList.remove('x', 'o', 'win');
   });
 }
 
