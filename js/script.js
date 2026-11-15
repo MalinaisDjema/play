@@ -80,5 +80,18 @@ function restartGame() {
   });
 }
 
+function updateScoreboard() {
+  scoreXEl.textContent = scoreX;
+  scoreOEl.textContent = scoreO;
+  scoreDrawEl.textContent = scoreDraw;
+}
+
+function resetScore() {
+  scoreX = 0;
+  scoreO = 0;
+  scoreDraw = 0;
+  updateScoreboard();
+}
+
 cells.forEach((cell) => cell.addEventListener('click', handleCellClick));
 restartBtn.addEventListener('click', restartGame);

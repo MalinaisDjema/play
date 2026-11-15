@@ -26,6 +26,34 @@ h1 {
   min-height: 2rem;
 }
 
+#scoreboard {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #16213e;
+  border-radius: 8px;
+  padding: 8px 20px;
+  min-width: 70px;
+}
+
+.score-label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #aaa;
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #eee;
+}
+
 #board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
