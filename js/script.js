@@ -76,6 +76,7 @@ function restartGame() {
     cell.textContent = '';
     cell.disabled = false;
     cell.classList.remove('x', 'o', 'win');
+    cell.style.background = '';
   });
 }
 
