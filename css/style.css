@@ -134,6 +134,7 @@ h1 {
 .cell.win {
   background: #2ecc71;
   border-color: #27ae60;
+  color: #fff;
   transition: background 0.3s;
 }
 
@@ -207,4 +208,64 @@ h1 {
 #resetScore:focus-visible {
   outline: 3px solid var(--o-color);
   outline-offset: 2px;
+}
+
+/* === Mobile (≤480px) === */
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    margin-bottom: 12px;
+  }
+
+  #status {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    margin-bottom: 16px;
+  }
+
+  #scoreboard {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .score-item {
+    padding: 6px 12px;
+    min-width: 56px;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+  }
+
+  .score-value {
+    font-size: 1.25rem;
+  }
+
+  #board {
+    width: min(90vw, 360px);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .cell {
+    width: auto;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    border-radius: 10px;
+  }
+
+  #restart {
+    min-height: 44px;
+    min-width: 140px;
+    padding: 10px 24px;
+  }
+
+  #resetScore {
+    min-height: 44px;
+    min-width: 140px;
+    padding: 8px 20px;
+    margin-top: 8px;
+  }
 }
