@@ -110,3 +110,19 @@ h1 {
 #restart:hover {
   background: #c73650;
 }
+
+#resetScore {
+  margin-top: 10px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #0f3460;
+  color: #eee;
+  transition: background 0.2s;
+}
+
+#resetScore:hover {
+  background: #1a4a7a;
+}

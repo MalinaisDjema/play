@@ -1,6 +1,10 @@
 const cells = document.querySelectorAll('.cell');
 const statusEl = document.getElementById('status');
 const restartBtn = document.getElementById('restart');
+const resetScoreBtn = document.getElementById('resetScore');
+const scoreXEl = document.getElementById('scoreX');
+const scoreOEl = document.getElementById('scoreO');
+const scoreDrawEl = document.getElementById('scoreDraw');
 
 const WIN_COMBOS = [
   [0, 1, 2],
@@ -17,6 +21,10 @@ let currentPlayer = 'X';
 let gameActive = true;
 let board = Array(9).fill('');
 
+let scoreX = 0;
+let scoreO = 0;
+let scoreDraw = 0;
+
 function handleCellClick(e) {
   const index = e.target.dataset.index;
 
@@ -28,27 +36,38 @@ function handleCellClick(e) {
 
   const winCombo = checkWin();
   if (winCombo) {
-    statusEl.textContent = `Победил ${currentPlayer}!`;
+    statusEl.textContent = 'Победил ' + currentPlayer + '!';
+    if (currentPlayer === 'X') {
+      scoreX++;
+    } else {
+      scoreO++;
+    }
+    updateScoreboard();
     gameActive = false;
     highlightWin(winCombo);
     disableAll();
     return;
   }
 
-  if (board.every((cell) => cell !== '')) {
+  if (board.every(function(cell) { return cell !== ''; })) {
     statusEl.textContent = 'Ничья!';
+    scoreDraw++;
+    updateScoreboard();
     gameActive = false;
     disableAll();
     return;
   }
 
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-  statusEl.textContent = `Ход: ${currentPlayer}`;
+  statusEl.textContent = 'Ход: ' + currentPlayer;
 }
 
 function checkWin() {
-  for (const combo of WIN_COMBOS) {
-    const [a, b, c] = combo;
+  for (var i = 0; i < WIN_COMBOS.length; i++) {
+    var combo = WIN_COMBOS[i];
+    var a = combo[0];
+    var b = combo[1];
+    var c = combo[2];
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       return combo;
     }
@@ -57,13 +76,15 @@ function checkWin() {
 }
 
 function highlightWin(combo) {
-  combo.forEach((index) => {
-    cells[index].style.background = '#e94560';
-  });
+  for (var i = 0; i < combo.length; i++) {
+    cells[combo[i]].style.background = '#e94560';
+  }
 }
 
 function disableAll() {
-  cells.forEach((cell) => (cell.disabled = true));
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].disabled = true;
+  }
 }
 
 function restartGame() {
@@ -72,12 +93,12 @@ function restartGame() {
   gameActive = true;
   statusEl.textContent = 'Ход: X';
 
-  cells.forEach((cell) => {
-    cell.textContent = '';
-    cell.disabled = false;
-    cell.classList.remove('x', 'o', 'win');
-    cell.style.background = '';
-  });
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].textContent = '';
+    cells[i].disabled = false;
+    cells[i].classList.remove('x', 'o', 'win');
+    cells[i].style.background = '';
+  }
 }
 
 function updateScoreboard() {
@@ -93,5 +114,8 @@ function resetScore() {
   updateScoreboard();
 }
 
-cells.forEach((cell) => cell.addEventListener('click', handleCellClick));
+for (var i = 0; i < cells.length; i++) {
+  cells[i].addEventListener('click', handleCellClick);
+}
 restartBtn.addEventListener('click', restartGame);
+resetScoreBtn.addEventListener('click', resetScore);
