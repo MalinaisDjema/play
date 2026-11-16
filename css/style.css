@@ -46,6 +46,7 @@
   --radius: 12px;
   --radius-sm: 8px;
   --btn-active-bg: #e94560;
+  --primary-btn: #e94560;
 }
 
 * {
@@ -61,7 +62,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: radial-gradient(ellipse at 30% 20%, var(--bg) 0%, var(--bg) 50%, #0d0d1a 100%);
+  background: radial-gradient(ellipse at 30% 20%, var(--bg) 0%, var(--bg) 50%, var(--bg) 100%);
   color: var(--text);
   position: relative;
   overflow-x: hidden;
@@ -302,7 +303,7 @@ h1 {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  background: var(--accent-x);
+  background: var(--primary-btn);
   color: var(--white);
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   box-shadow: 0 4px 12px var(--accent-x-30);
@@ -313,12 +314,8 @@ h1 {
 #restart:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(233, 69, 96, 0.4);
-}
-
-#restart:active {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 2px 8px var(--accent-x-30);
+  box-shadow: 0 6px 16px var(--accent-x-40);
+  background: var(--accent-hover);
 }
 
 #restart:focus-visible {
@@ -424,14 +421,15 @@ h1 {
 
 /* === Тема: Neon === */
 body.theme-neon {
-  --bg: #1a0b2e;
-  --text: #ffffff;
+  --bg: #0a0015;
+  --text: #e0ffe0;
   --accent-x: #39ff14;
-  --accent-o: #00ffff;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --border: rgba(57, 255, 20, 0.3);
+  --accent-o: #ff00ff;
+  --card-bg: rgba(57, 255, 20, 0.1);
+  --border: rgba(57, 255, 20, 0.5);
+  --primary-btn: #39ff14;
   --accent-x-rgb: 57, 255, 20;
-  --accent-o-rgb: 0, 255, 255;
+  --accent-o-rgb: 255, 0, 255;
   --accent-x-6: rgba(var(--accent-x-rgb), 0.06);
   --accent-x-15: rgba(var(--accent-x-rgb), 0.15);
   --accent-x-20: rgba(var(--accent-x-rgb), 0.2);
@@ -448,26 +446,51 @@ body.theme-neon {
   --win-shadow: rgba(57, 255, 20, 0.3);
   --win-shadow-strong: rgba(57, 255, 20, 0.6);
   --win-text: #fff;
+  --glass-bg: rgba(57, 255, 20, 0.08);
+  --glass-border: rgba(57, 255, 20, 0.3);
+  --cell-hover: rgba(57, 255, 20, 0.15);
+  --btn-active-bg: #39ff14;
 }
 
 body.theme-neon body {
-  background: radial-gradient(ellipse at 30% 20%, #2a1050 0%, var(--bg) 50%, #0d0520 100%);
+  background: radial-gradient(ellipse at 30% 20%, #1a0030 0%, var(--bg) 50%, #050010 100%);
+}
+
+body.theme-neon h1 {
+  text-shadow: 0 0 10px var(--primary-btn), 0 0 20px var(--accent-x-30);
+}
+
+body.theme-neon .mode-btn.active {
+  box-shadow: 0 0 10px var(--primary-btn), 0 0 20px var(--accent-x-30);
+}
+
+body.theme-neon #restart {
+  box-shadow: 0 0 10px var(--primary-btn), 0 0 20px var(--accent-x-30);
+}
+
+body.theme-neon #restart:hover {
+  box-shadow: 0 0 16px var(--primary-btn), 0 0 30px var(--accent-x-40);
+}
+
+body.theme-neon .cell {
+  border-color: var(--border);
+  box-shadow: inset 0 0 8px rgba(57, 255, 20, 0.2);
 }
 
 body.theme-neon .cell.x {
-  text-shadow: 0 0 16px var(--accent-x), 0 0 32px var(--accent-x-30);
+  text-shadow: 0 0 8px currentColor, 0 0 20px var(--accent-x), 0 0 40px var(--accent-x-30);
 }
 
 body.theme-neon .cell.o {
-  text-shadow: 0 0 16px var(--accent-o), 0 0 32px var(--accent-o-30);
+  text-shadow: 0 0 8px currentColor, 0 0 20px var(--accent-o), 0 0 40px rgba(var(--accent-o-rgb), 0.3);
 }
 
 body.theme-neon #status .player-x {
-  text-shadow: 0 0 12px var(--accent-x);
+  text-shadow: 0 0 12px var(--accent-x), 0 0 24px var(--accent-x-40);
 }
 
 body.theme-neon #status .player-o {
-  text-shadow: 0 0 12px var(--accent-o);
+  text-shadow: 0 0 12px var(--accent-o), 0 0 24px rgba(var(--accent-o-rgb), 0.4);
 }
 
 body.theme-neon .cell.win {
@@ -475,7 +498,7 @@ body.theme-neon .cell.win {
   border-color: var(--win-border);
   color: var(--win-text);
   text-shadow: 0 0 16px var(--win-shadow-strong);
-  box-shadow: inset 0 0 20px var(--win-shadow);
+  box-shadow: inset 0 0 20px var(--win-shadow), 0 0 20px var(--win-shadow);
 }
 
 /* === Тема: Retro === */
@@ -515,6 +538,7 @@ body.theme-retro {
   --white-20: rgba(255, 255, 255, 0.2);
   --cell-hover: #ddd0b8;
   --btn-active-bg: #8b0000;
+  --primary-btn: #8b0000;
 }
 
 body.theme-retro body {
