@@ -1,18 +1,51 @@
 :root {
+  /* Основные цвета */
   --bg: #1a1a2e;
-  --cell-bg: #16213e;
-  --cell-hover: #0f3460;
-  --x-color: #e94560;
-  --o-color: #00d2ff;
   --text: #eee;
-  --text-muted: #999;
-  --accent: #e94560;
-  --accent-hover: #ff6b81;
+  --accent-x: #e94560;
+  --accent-o: #00d2ff;
+  --card-bg: #16213e;
   --border: #2a2a4a;
-  --radius: 12px;
-  --radius-sm: 8px;
+
+  /* Альфа-варианты для rgba() */
+  --accent-x-rgb: 233, 69, 96;
+  --accent-o-rgb: 0, 210, 255;
+  --accent-x-6: rgba(var(--accent-x-rgb), 0.06);
+  --accent-x-15: rgba(var(--accent-x-rgb), 0.15);
+  --accent-x-20: rgba(var(--accent-x-rgb), 0.2);
+  --accent-x-30: rgba(var(--accent-x-rgb), 0.3);
+  --accent-x-40: rgba(var(--accent-x-rgb), 0.4);
+  --accent-x-50: rgba(var(--accent-x-rgb), 0.5);
+  --accent-o-5: rgba(var(--accent-o-rgb), 0.05);
+  --accent-o-20: rgba(var(--accent-o-rgb), 0.2);
+  --accent-o-40: rgba(var(--accent-o-rgb), 0.4);
+  --accent-o-50: rgba(var(--accent-o-rgb), 0.5);
+
+  /* Нейтральные */
+  --white: #fff;
+  --white-08: rgba(255, 255, 255, 0.08);
+  --white-15: rgba(255, 255, 255, 0.15);
+  --white-20: rgba(255, 255, 255, 0.2);
+  --black-20: rgba(0, 0, 0, 0.2);
+  --black-30: rgba(0, 0, 0, 0.3);
+  --black-10: rgba(0, 0, 0, 0.1);
+
+  /* Победа */
+  --win-bg: rgba(46, 204, 113, 0.2);
+  --win-border: #2ecc71;
+  --win-text: #fff;
+  --win-shadow: rgba(46, 204, 113, 0.3);
+  --win-shadow-strong: rgba(46, 204, 113, 0.6);
+
+  /* Доп. */
+  --accent-hover: #ff6b81;
+  --text-muted: #999;
+  --cell-hover: #0f3460;
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --btn-active-bg: #e94560;
 }
 
 * {
@@ -28,7 +61,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: radial-gradient(ellipse at 30% 20%, #1e2a4a 0%, var(--bg) 50%, #0d0d1a 100%);
+  background: radial-gradient(ellipse at 30% 20%, var(--bg) 0%, var(--bg) 50%, #0d0d1a 100%);
   color: var(--text);
   position: relative;
   overflow-x: hidden;
@@ -41,7 +74,7 @@ body::before {
   left: -10%;
   width: 60%;
   height: 60%;
-  background: radial-gradient(circle, rgba(233, 69, 96, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-x-6) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -53,7 +86,7 @@ body::after {
   right: -10%;
   width: 50%;
   height: 50%;
-  background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-o-5) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -63,7 +96,7 @@ h1 {
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 0%, #ff8fa3 100%);
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent-x) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -102,9 +135,9 @@ h1 {
 }
 
 .mode-btn.active {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+  background: var(--btn-active-bg);
+  color: var(--white);
+  box-shadow: 0 2px 8px var(--accent-x-30);
 }
 
 #status {
@@ -125,14 +158,14 @@ h1 {
 }
 
 #status .player-x {
-  color: var(--x-color);
-  text-shadow: 0 0 8px rgba(233, 69, 96, 0.5);
+  color: var(--accent-x);
+  text-shadow: 0 0 8px var(--accent-x-50);
   font-weight: 700;
 }
 
 #status .player-o {
-  color: var(--o-color);
-  text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+  color: var(--accent-o);
+  text-shadow: 0 0 8px var(--accent-o-50);
   font-weight: 700;
 }
 
@@ -154,13 +187,13 @@ h1 {
   padding: 10px 20px;
   min-width: 72px;
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px var(--black-20);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .score-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 16px var(--black-30);
 }
 
 .score-label {
@@ -205,8 +238,8 @@ h1 {
 
 .cell:hover:not(:disabled) {
   background: var(--cell-hover);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 12px rgba(233, 69, 96, 0.15);
+  border-color: var(--white-15);
+  box-shadow: inset 0 2px 4px var(--black-30), 0 0 12px var(--accent-x-15);
 }
 
 .cell:active:not(:disabled) {
@@ -218,28 +251,28 @@ h1 {
 }
 
 .cell:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--accent-x);
   outline-offset: 2px;
 }
 
 .cell.x {
-  color: var(--x-color);
-  border-color: rgba(233, 69, 96, 0.2);
-  text-shadow: 0 0 12px rgba(233, 69, 96, 0.4);
+  color: var(--accent-x);
+  border-color: var(--accent-x-20);
+  text-shadow: 0 0 12px var(--accent-x-40);
 }
 
 .cell.o {
-  color: var(--o-color);
-  border-color: rgba(0, 210, 255, 0.2);
-  text-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+  color: var(--accent-o);
+  border-color: var(--accent-o-20);
+  text-shadow: 0 0 12px var(--accent-o-40);
 }
 
 .cell.win {
-  background: rgba(46, 204, 113, 0.2);
-  border-color: #2ecc71;
-  color: #fff;
-  text-shadow: 0 0 16px rgba(46, 204, 113, 0.6);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(46, 204, 113, 0.3);
+  background: var(--win-bg);
+  border-color: var(--win-border);
+  color: var(--win-text);
+  text-shadow: 0 0 16px var(--win-shadow-strong);
+  box-shadow: inset 0 2px 4px var(--black-20), 0 0 20px var(--win-shadow);
   transition: background 0.3s, box-shadow 0.3s;
 }
 
@@ -269,10 +302,10 @@ h1 {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  background: var(--accent);
-  color: #fff;
+  background: var(--accent-x);
+  color: var(--white);
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+  box-shadow: 0 4px 12px var(--accent-x-30);
   position: relative;
   z-index: 1;
 }
@@ -285,11 +318,11 @@ h1 {
 
 #restart:active {
   transform: translateY(0) scale(0.97);
-  box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+  box-shadow: 0 2px 8px var(--accent-x-30);
 }
 
 #restart:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--accent-x);
   outline-offset: 2px;
 }
 
@@ -311,11 +344,11 @@ h1 {
 }
 
 #resetScore:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--white-20);
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--white-08);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px var(--black-20);
 }
 
 #resetScore:active {
@@ -323,7 +356,7 @@ h1 {
 }
 
 #resetScore:focus-visible {
-  outline: 3px solid var(--o-color);
+  outline: 3px solid var(--accent-o);
   outline-offset: 2px;
 }
 
@@ -387,4 +420,176 @@ h1 {
     padding: 8px 20px;
     margin-top: 8px;
   }
+}
+
+/* === Тема: Neon === */
+body.theme-neon {
+  --bg: #1a0b2e;
+  --text: #ffffff;
+  --accent-x: #39ff14;
+  --accent-o: #00ffff;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --border: rgba(57, 255, 20, 0.3);
+  --accent-x-rgb: 57, 255, 20;
+  --accent-o-rgb: 0, 255, 255;
+  --accent-x-6: rgba(var(--accent-x-rgb), 0.06);
+  --accent-x-15: rgba(var(--accent-x-rgb), 0.15);
+  --accent-x-20: rgba(var(--accent-x-rgb), 0.2);
+  --accent-x-30: rgba(var(--accent-x-rgb), 0.3);
+  --accent-x-40: rgba(var(--accent-x-rgb), 0.4);
+  --accent-x-50: rgba(var(--accent-x-rgb), 0.5);
+  --accent-o-5: rgba(var(--accent-o-rgb), 0.05);
+  --accent-o-20: rgba(var(--accent-o-rgb), 0.2);
+  --accent-o-40: rgba(var(--accent-o-rgb), 0.4);
+  --accent-o-50: rgba(var(--accent-o-rgb), 0.5);
+  --accent-hover: #50ff3a;
+  --win-bg: rgba(57, 255, 20, 0.2);
+  --win-border: #39ff14;
+  --win-shadow: rgba(57, 255, 20, 0.3);
+  --win-shadow-strong: rgba(57, 255, 20, 0.6);
+  --win-text: #fff;
+}
+
+body.theme-neon body {
+  background: radial-gradient(ellipse at 30% 20%, #2a1050 0%, var(--bg) 50%, #0d0520 100%);
+}
+
+body.theme-neon .cell.x {
+  text-shadow: 0 0 16px var(--accent-x), 0 0 32px var(--accent-x-30);
+}
+
+body.theme-neon .cell.o {
+  text-shadow: 0 0 16px var(--accent-o), 0 0 32px var(--accent-o-30);
+}
+
+body.theme-neon #status .player-x {
+  text-shadow: 0 0 12px var(--accent-x);
+}
+
+body.theme-neon #status .player-o {
+  text-shadow: 0 0 12px var(--accent-o);
+}
+
+body.theme-neon .cell.win {
+  background: var(--win-bg);
+  border-color: var(--win-border);
+  color: var(--win-text);
+  text-shadow: 0 0 16px var(--win-shadow-strong);
+  box-shadow: inset 0 0 20px var(--win-shadow);
+}
+
+/* === Тема: Retro === */
+body.theme-retro {
+  --bg: #f4ecd8;
+  --text: #333333;
+  --accent-x: #8b0000;
+  --accent-o: #00008b;
+  --card-bg: #eaddc5;
+  --border: #c0b090;
+  --text-muted: #666666;
+  --accent-x-rgb: 139, 0, 0;
+  --accent-o-rgb: 0, 0, 139;
+  --accent-x-6: rgba(var(--accent-x-rgb), 0.06);
+  --accent-x-15: rgba(var(--accent-x-rgb), 0.15);
+  --accent-x-20: rgba(var(--accent-x-rgb), 0.2);
+  --accent-x-30: rgba(var(--accent-x-rgb), 0.3);
+  --accent-x-40: rgba(var(--accent-x-rgb), 0.4);
+  --accent-x-50: rgba(var(--accent-x-rgb), 0.5);
+  --accent-o-5: rgba(var(--accent-o-rgb), 0.05);
+  --accent-o-20: rgba(var(--accent-o-rgb), 0.2);
+  --accent-o-40: rgba(var(--accent-o-rgb), 0.4);
+  --accent-o-50: rgba(var(--accent-o-rgb), 0.5);
+  --accent-hover: #a52a2a;
+  --win-bg: rgba(46, 204, 113, 0.2);
+  --win-border: #2ecc71;
+  --win-shadow: rgba(46, 204, 113, 0.3);
+  --win-shadow-strong: rgba(46, 204, 113, 0.6);
+  --win-text: #fff;
+  --glass-bg: rgba(0, 0, 0, 0.04);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --black-20: rgba(0, 0, 0, 0.2);
+  --black-30: rgba(0, 0, 0, 0.3);
+  --black-10: rgba(0, 0, 0, 0.1);
+  --white-08: rgba(255, 255, 255, 0.08);
+  --white-15: rgba(255, 255, 255, 0.15);
+  --white-20: rgba(255, 255, 255, 0.2);
+  --cell-hover: #ddd0b8;
+  --btn-active-bg: #8b0000;
+}
+
+body.theme-retro body {
+  background: #f4ecd8;
+}
+
+body.theme-retro .cell.x {
+  text-shadow: none;
+}
+
+body.theme-retro .cell.o {
+  text-shadow: none;
+}
+
+body.theme-retro #status .player-x {
+  text-shadow: none;
+}
+
+body.theme-retro #status .player-o {
+  text-shadow: none;
+}
+
+body.theme-retro .cell.win {
+  background: var(--win-bg);
+  border-color: var(--win-border);
+  color: var(--win-text);
+  text-shadow: 0 0 8px var(--win-shadow-strong);
+  box-shadow: inset 0 0 12px var(--win-shadow);
+}
+
+/* === Переключатель тем === */
+#theme-switcher {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.theme-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+}
+
+.theme-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-btn:focus-visible {
+  outline: 2px solid var(--accent-x);
+  outline-offset: 2px;
+}
+
+.theme-btn[data-theme="classic"] {
+  background: #e94560;
+  color: #fff;
+  border-color: transparent;
+}
+
+.theme-btn[data-theme="neon"] {
+  background: #39ff14;
+  color: #1a0a2e;
+  border-color: transparent;
+}
+
+.theme-btn[data-theme="retro"] {
+  background: #c0392b;
+  color: #f4ecd8;
+  border-color: transparent;
 }
