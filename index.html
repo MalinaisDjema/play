@@ -45,10 +45,22 @@
     <button class="cell" data-index="8"></button>
   </div>
 
-  <div id="theme-switcher">
-    <button class="theme-btn" data-theme="classic">Классика</button>
-    <button class="theme-btn" data-theme="neon">Неон</button>
-    <button class="theme-btn" data-theme="retro">Ретро</button>
+  <div class="settings-group">
+    <span class="settings-label">Тема:</span>
+    <div id="theme-switcher">
+      <button class="theme-btn" data-theme="classic">Классика</button>
+      <button class="theme-btn" data-theme="neon">Неон</button>
+      <button class="theme-btn" data-theme="retro">Ретро</button>
+    </div>
+  </div>
+
+  <div class="settings-group">
+    <span class="settings-label">Значки:</span>
+    <div id="symbol-switcher">
+      <button class="symbol-btn active" data-symbols="classic">X / O</button>
+      <button class="symbol-btn" data-symbols="cats">Котики</button>
+      <button class="symbol-btn" data-symbols="emoji">Смайлы</button>
+    </div>
   </div>
 
   <button id="restart">Новая игра</button>

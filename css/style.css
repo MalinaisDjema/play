@@ -569,14 +569,34 @@ body.theme-retro .cell.win {
   box-shadow: inset 0 0 12px var(--win-shadow);
 }
 
-/* === Переключатель тем === */
+/* === Настройки (темы и символы) === */
+.settings-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.settings-label {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
 #theme-switcher {
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
+}
+
+#symbol-switcher {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .theme-btn {
@@ -589,6 +609,7 @@ body.theme-retro .cell.win {
   outline: none;
   background: transparent;
   color: var(--text);
+  flex-shrink: 0;
 }
 
 .theme-btn:hover {
@@ -615,5 +636,46 @@ body.theme-retro .cell.win {
 .theme-btn[data-theme="retro"] {
   background: #c0392b;
   color: #f4ecd8;
+  border-color: transparent;
+}
+
+/* === Кнопки выбора символов === */
+.symbol-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.symbol-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.symbol-btn:focus-visible {
+  outline: 2px solid var(--accent-x);
+  outline-offset: 2px;
+}
+
+.symbol-btn[data-symbols="classic"] {
+  background: var(--accent-x);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.symbol-btn[data-symbols="cats"] {
+  background: var(--accent-o);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.symbol-btn[data-symbols="emoji"] {
+  background: var(--accent-hover);
+  color: var(--white);
   border-color: transparent;
 }
