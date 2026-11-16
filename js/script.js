@@ -243,3 +243,29 @@ for (var i = 0; i < modeBtns.length; i++) {
     };
   })(modeBtns[i]));
 }
+
+/* === Тема оформления === */
+var themeBtns = document.querySelectorAll('.theme-btn');
+
+function applyTheme(theme) {
+  document.body.classList.remove('theme-neon', 'theme-retro', 'theme-classic');
+  if (theme && theme !== 'classic') {
+    document.body.classList.add('theme-' + theme);
+  }
+  localStorage.setItem('tictactoe-theme', theme);
+}
+
+for (var i = 0; i < themeBtns.length; i++) {
+  themeBtns[i].addEventListener('click', (function(btn) {
+    return function() {
+      applyTheme(btn.dataset.theme);
+    };
+  })(themeBtns[i]));
+}
+
+(function() {
+  var saved = localStorage.getItem('tictactoe-theme');
+  if (saved) {
+    applyTheme(saved);
+  }
+})();
