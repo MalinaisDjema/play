@@ -28,6 +28,26 @@ var scoreX = 0;
 var scoreO = 0;
 var scoreDraw = 0;
 
+/* === Набор значков === */
+var symbolSets = {
+  classic: { X: 'X', O: 'O' },
+  cats: { X: '🐱', O: '🐶' },
+  emoji: { X: '❌', O: '⭕' }
+};
+
+var currentSymbolSet = 'classic';
+
+function getDisplaySymbol(player) {
+  return symbolSets[currentSymbolSet][player] || player;
+}
+
+(function() {
+  var saved = localStorage.getItem('ticTacToeSymbols');
+  if (saved && symbolSets[saved]) {
+    currentSymbolSet = saved;
+  }
+})();
+
 function handleCellClick(e) {
   var index = e.target.dataset.index;
 
@@ -51,7 +71,7 @@ function handleCellClick(e) {
 
 function makeMove(index, cellEl) {
   board[index] = currentPlayer;
-  cellEl.textContent = currentPlayer;
+  cellEl.textContent = getDisplaySymbol(currentPlayer);
   cellEl.classList.add(currentPlayer.toLowerCase());
   cellEl.classList.add('pop');
   cellEl.addEventListener('animationend', function handler() {
@@ -61,7 +81,7 @@ function makeMove(index, cellEl) {
 
   var winCombo = checkWin();
   if (winCombo) {
-    statusEl.textContent = 'Победил ' + currentPlayer + '!';
+    statusEl.textContent = 'Победил ' + getDisplaySymbol(currentPlayer) + '!';
     if (currentPlayer === 'X') {
       scoreX++;
     } else {
@@ -86,7 +106,7 @@ function makeMove(index, cellEl) {
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
   if (gameMode === 'pvp') {
     var cls = currentPlayer === 'X' ? 'player-x' : 'player-o';
-    statusEl.innerHTML = 'Ход: <span class="' + cls + '">' + currentPlayer + '</span>';
+    statusEl.innerHTML = 'Ход: <span class="' + cls + '">' + getDisplaySymbol(currentPlayer) + '</span>';
   }
 }
 
@@ -195,7 +215,7 @@ function restartGame() {
   currentPlayer = 'X';
   gameActive = true;
   isComputerThinking = false;
-  statusEl.innerHTML = 'Ход: <span class="player-x">X</span>';
+  statusEl.innerHTML = 'Ход: <span class="player-x">' + getDisplaySymbol('X') + '</span>';
 
   for (var i = 0; i < cells.length; i++) {
     cells[i].textContent = '';
@@ -269,3 +289,50 @@ for (var i = 0; i < themeBtns.length; i++) {
     applyTheme(saved);
   }
 })();
+
+/* === Набор символов === */
+var symbolBtns = document.querySelectorAll('.symbol-btn');
+
+for (var i = 0; i < symbolBtns.length; i++) {
+  symbolBtns[i].addEventListener('click', (function(btn) {
+    return function() {
+      currentSymbolSet = btn.dataset.symbols;
+      localStorage.setItem('ticTacToeSymbols', currentSymbolSet);
+
+      for (var j = 0; j < symbolBtns.length; j++) {
+        symbolBtns[j].classList.remove('active');
+      }
+      btn.classList.add('active');
+
+      /* Перерисовываем все ячейки */
+      for (var k = 0; k < cells.length; k++) {
+        if (board[k] === 'X') {
+          cells[k].textContent = getDisplaySymbol('X');
+        } else if (board[k] === 'O') {
+          cells[k].textContent = getDisplaySymbol('O');
+        }
+      }
+
+      /* Обновляем статус */
+      if (gameActive && gameMode === 'pvp') {
+        var cls = currentPlayer === 'X' ? 'player-x' : 'player-o';
+        statusEl.innerHTML = 'Ход: <span class="' + cls + '">' + getDisplaySymbol(currentPlayer) + '</span>';
+      } else if (!gameActive) {
+        /* Если игра окончена — перерисовываем статус */
+        var lastWinner = null;
+        for (var m = 0; m < WIN_COMBOS.length; m++) {
+          var combo = WIN_COMBOS[m];
+          if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) {
+            lastWinner = board[combo[0]];
+            break;
+          }
+        }
+        if (lastWinner) {
+          statusEl.textContent = 'Победил ' + getDisplaySymbol(lastWinner) + '!';
+        } else {
+          statusEl.textContent = 'Ничья!';
+        }
+      }
+    };
+  })(symbolBtns[i]));
+}
